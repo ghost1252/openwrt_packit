@@ -1,9 +1,22 @@
-- name: Package Armvirt as OpenWrt
-  uses: unifreq/openwrt_packit@master
-  env:
-    OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
-    PACKAGE_SOC: s905x3_beikeyun
-    KERNEL_VERSION_NAME: 6.6.66
- Default IP: 192.168.1.1
-      Default username: root
-      Default password: password
+name: Build OpenWrt
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Package Armvirt as OpenWrt
+        uses: unifreq/openwrt_packit@master
+        env:
+          OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
+          PACKAGE_SOC: s912_onecloudpro
+          KERNEL_VERSION_NAME: 6.1.147
